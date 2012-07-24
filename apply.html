@@ -8,6 +8,7 @@
     <script type="text/javascript" src="shared/js/view.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
     <script src="shared/js/jquery.form.js"></script>
+    <script src="shared/js/validate.js"></script>
 </head>
 <body id="main_body">
 
@@ -17,49 +18,51 @@
 
 <h1><a>Apply</a></h1>
 
-<form id="apply" class="appnitro" enctype="multipart/form-data" method="post" action="apply.php">
+<form id="apply" name="apply" class="appnitro" enctype="multipart/form-data" method="post" action="apply.php">
 <div class="form_description">
     <h2>Apply</h2>
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-</div>
+    </div>
 <ul>
-
-<li id="li_1">
-    <label class="description" for="name">Name </label>
-		<span>
-			<input id="first_name" name="first_name" class="element text" maxlength="255" size="8" value=""/>
-			<label>First</label>
-		</span>
-		<span>
-			<input id="last_name" name="last_name" class="element text" maxlength="255" size="14" value=""/>
-			<label>Last</label>
-		</span>
+<li id="error_message" style="display: none">
+    <h3 id="error_message_title">There was a problem with your submission.</h3>
+    <p id="error_message_desc">Errors have been <strong>highlighted</strong> below.</p>
 </li>
-<li id="li_2">
-    <label class="description" for="email">Email </label>
+<li id="li_name">
+    <label class="description" for="name">Name <span class="required">*</span></label>
+
+    <div>
+        <input id="name" name="name" class="element text medium" type="text" maxlength="255" value=""/>
+    </div>
+    <p class="error"></p>
+</li>
+<li id="li_email">
+    <label class="description" for="email">Email <span class="required">*</span></label>
 
     <div>
         <input id="email" name="email" class="element text medium" type="text" maxlength="255" value=""/>
     </div>
+    <p class="error"></p>
 </li>
-<li id="li_10">
-    <label class="description" for="location">Location Applying For </label>
+<li id="li_location">
+    <label class="description" for="location">Location Applying For <span class="required">*</span></label>
 
     <div>
         <select class="element select medium" id="location" name="location">
-            <option value="" selected="selected"></option>
+            <option value="" selected="selected">Select Location</option>
             <option value="1">Los Angeles</option>
             <option value="2">London</option>
 
         </select>
     </div>
+    <p class="error"></p>
 </li>
-<li id="li_11">
-    <label class="description" for="role">Role Applying For </label>
+<li id="li_role">
+    <label class="description" for="role">Role Applying For <span class="required">*</span></label>
 
     <div>
         <select class="element select medium" id="role" name="role">
-            <option value="" selected="selected"></option>
+            <option value="" selected="selected">Select Role</option>
             <option value="1">Shot Creator</option>
             <option value="2">Asset Builder</option>
             <option value="3">Generalist / Editor</option>
@@ -67,13 +70,14 @@
 
         </select>
     </div>
+    <p class="error"></p>
 </li>
-<li id="li_12">
-<label class="description" for="country">Country of Residence </label>
+<li id="li_country">
+<label class="description" for="country">Country of Residence <span class="required">*</span></label>
 
 <div>
 <select class="element select medium" id="country" name="country">
-<option value="-1" selected="selected">Select Country</option>
+<option value="" selected="selected">Select Country</option>
 <option value="Afghanistan">Afghanistan</option>
 <option value="Albania">Albania</option>
 <option value="Algeria">Algeria</option>
@@ -315,59 +319,61 @@
 <option value="Zimbabwe">Zimbabwe</option>
 </select>
 </div>
+<p class="error"></p>
 </li>
-<li id="li_13">
-    <label class="description" for="visa">Visa Status </label>
+<li id="li_visa">
+    <label class="description" for="visa">Visa Status <span class="required">*</span></label>
     <span>
         <input id="yes" name="visa" class="element radio" type="radio" value="1"/>
         <label class="choice" for="yes">I have a Visa for the selected country</label>
         <input id="no" name="visa" class="element radio" type="radio" value="2"/>
         <label class="choice" for="no">I require a Visa to work in the selected country</label>
     </span>
+    <p class="error"></p>
 </li>
-<li id="li_3">
+<li id="li_resume">
     <label class="description" for="resume">Resume/CV </label>
 
     <div>
         <input id="resume" name="resume" class="element file" type="file"/>
     </div>
 </li>
-<li id="li_4">
+<li id="li_work_samples">
     <label class="description" for="work_samples">Reels/Work Samples </label>
 
     <div>
         <input id="work_samples" name="work_samples[]" class="element file" type="file" multiple/>
     </div>
 </li>
-<li id="li_9">
+<li id="li_work_samples_url">
     <label class="description" for="work_samples_url">Reels/Work Samples URL </label>
 
     <div>
         <input id="work_samples_url" name="work_samples_url" class="element text medium" type="text" maxlength="255" value="http://"/>
     </div>
 </li>
-<li id="li_5">
+<li id="li_shot_breakdowns">
     <label class="description" for="shot_breakdowns">Shot Breakdown </label>
 
     <div>
         <input id="shot_breakdowns" name="shot_breakdowns[]" class="element file" type="file" multiple/>
     </div>
 </li>
-<li id="li_8">
+<li id="li_shot_breakdowns_url">
     <label class="description" for="shot_breakdowns_url">Shot Breakdown URL </label>
 
     <div>
         <input id="shot_breakdowns_url" name="shot_breakdowns_url" class="element text medium" type="text" maxlength="255" value="http://"/>
     </div>
 </li>
-<li id="li_6">
+<li id="li_comments">
     <label class="description" for="comments">Comments </label>
 
     <div>
         <textarea id="comments" name="comments" class="element textarea medium"></textarea>
     </div>
 </li>
-<li id="li_7">
+<li id="li_verification_details">
     <label class="description" for="verification_details">Verification Details </label>
 
     <div>
@@ -376,7 +382,7 @@
 </li>
 
 <li class="buttons">
-    <input id="saveForm" class="button_text" type="submit" name="submit" value="submit"/>
+    <input id="saveForm" class="button_text" type="Submit" name="Submit" value="Submit"/>
 </li>
 </ul>
 </form>
@@ -385,5 +391,53 @@
 </div>
 </div>
 <img id="bottom" src="shared/img/bottom.png" alt="">
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#apply').ajaxForm();
+    });
+
+    var validator = new FormValidator('apply',
+    [{
+        name: 'name',
+        rules: 'required'
+    },
+    {
+        name: 'email',
+        rules: 'required|valid_email'
+    },
+    {
+        name: 'location',
+        rules: 'required'
+    },
+    {
+        name: 'role',
+        rules: 'required'
+    },
+    {
+        name: 'country',
+        rules: 'required'
+    },
+    {
+        name: 'visa',
+        rules: 'required'
+    }
+    ],
+    function(errors, event) {
+        resetErrors();
+        if (errors.length > 0) {
+            $.each(errors, function(index) {
+                var element_id = '#li_'+errors[index].id;
+                $(element_id).attr('class', 'error');
+                $(element_id).find('.error').html(errors[index].message);
+            });
+            $('#error_message').show();
+        }
+    });
+    function resetErrors() {
+        $('#error_message').hide();
+        $('li').attr('class','');
+        $('.error').html('');
+    }
+</script>
 </body>
 </html>
