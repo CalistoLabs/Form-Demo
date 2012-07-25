@@ -57,6 +57,10 @@ if (isset($_POST['Submit'])) {
     }
 }
 
+function compile_message($name, $email, $location, $role, $country, $visa, $uploaded_files, $comments, $verification_details) {
+    $template = file_get_contents('email_template.html');
+}
+
 function upload($file, $fileType, $fileIndex, $allowed_filetypes, $max_filesize, $upload_path, &$errors, &$uploaded_files) {
     $filename = $file['name'];
     $ext = strrchr($filename,'.');
