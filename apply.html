@@ -382,6 +382,12 @@
 </li>
 
 <li class="buttons">
+    <div class="progress">
+        <div class="bar"></div >
+        <div class="percent">0%</div >
+    </div>
+
+    <div id="status"></div>
     <input id="saveForm" class="button_text" type="Submit" name="Submit" value="Submit"/>
 </li>
 </ul>
@@ -393,7 +399,27 @@
 <img id="bottom" src="shared/img/bottom.png" alt="">
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#apply').ajaxForm();
+        var bar = $('.bar');
+        var percent = $('.percent');
+        var status = $('#status');
+
+        $('#apply').ajaxForm({
+            beforeSend: function() {
+                status.empty();
+                var percentVal = '0%';
+                bar.width(percentVal)
+                percent.html(percentVal);
+            },
+            uploadProgress: function(event, position, total, percentComplete) {
+                var percentVal = percentComplete + '%';
+                bar.width(percentVal)
+                percent.html(percentVal);
+                //console.log(percentVal, position, total);
+            },
+            complete: function(xhr) {
+                status.html(xhr.responseText);
+            }
+        });
     });
 
     var validator = new FormValidator('apply',
