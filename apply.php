@@ -37,6 +37,13 @@ if (isset($_POST['Submit'])) {
         $errors .= 'Please enter your email address.<br/>';
     }
 
+    $location = filter_var($_POST['location'], FILTER_SANITIZE_STRING);
+    $role = filter_var($_POST['role'], FILTER_SANITIZE_STRING);
+    $country = filter_var($_POST['country'], FILTER_SANITIZE_STRING);
+    $visa = filter_var($_POST['visa'], FILTER_SANITIZE_STRING);
+    $comments = filter_var($_POST['comments'], FILTER_SANITIZE_STRING);
+    $verification_details = filter_var($_POST['verification_details'], FILTER_SANITIZE_STRING);
+
     if (!$errors) {
         $to = 'jesal@calistolabs.com';
         $subject = 'New Career Form Submission';
